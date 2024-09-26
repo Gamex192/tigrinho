@@ -10,6 +10,7 @@ def bets():
         print("vc ganhou, infeliz")
         prize = bet * 1.5
         result = money - bet + prize
+        print(result)
         return result
 
     else:
@@ -19,19 +20,13 @@ def bets():
         return result
 
 
-def new_games():
-    new_game = input("vc quer apostar denovo? 1 = sim 2 = não: ")
-    if new_game == 1:
-        bets()
-    else:
-        pass
-
-
+sla = 1
 money = float(input("quanto reais vc quer depositar: "))
-while True:
+while sla == 1:
     bet = float(input("quanto vc quer apostar: "))
     if bet > money:
         print("vc tá doido home apostando mais do que tem kkkkkk")
+        sla = 2
     else:
         money = bets()
-        new_games()
+        sla = int(input("você quer continuar apostando? 1 = sim 2 = não:"))
