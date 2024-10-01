@@ -3,8 +3,8 @@ import flet as ft
 
 
 def sorteio():
-    lista = ["amuleto1.PNG", "carta1.PNG", "laranja1.PNG", "wild1.PNG", "fogo_de_artificio1.PNG",
-             "saco_de_ouro1.PNG", "zovo_de_ouro1.PNG"]
+    lista = ["amuleto.PNG", "carta.PNG", "laranja.PNG", "wild.PNG", "fogo_de_artificio.PNG",
+             "saco_de_ouro.PNG", "zovo_de_ouro.PNG"]
     a = random.choice(lista)
     b = random.choice(lista)
     c = random.choice(lista)
@@ -22,79 +22,72 @@ sorte = sorteio()
 
 
 def main(page: ft.Page):
-    def button_clicked(e):
+    def pagina():
+
+        def item(a):
+            global sorte
+            sorte = sorteio()
+            if a == 1 or 2 or 3:
+                return ft.Container(image_src=f"images/{sorte[a]}", padding=50, margin=2)
+            else:
+                return ft.Container(image_src=f"images/{sorte[a]}", padding=50, margin=2, )
+
         global sorte
         sorte = sorteio()
         page.clean()
         retry = ft.IconButton(icon=ft.icons.ASSIGNMENT_RETURN, on_click=button_clicked)
-        item1 = ft.Image(src=f"images/{sorte[0]}", width=100, height=100)
-        item2 = ft.Image(src=f"images/{sorte[1]}", width=100, height=100)
-        item3 = ft.Image(src=f"images/{sorte[2]}", width=100, height=100)
-        item4 = ft.Image(src=f"images/{sorte[3]}", width=100, height=100)
-        item5 = ft.Image(src=f"images/{sorte[4]}", width=100, height=100)
-        item6 = ft.Image(src=f"images/{sorte[5]}", width=100, height=100)
-        item7 = ft.Image(src=f"images/{sorte[5]}", width=100, height=100)
-        item8 = ft.Image(src=f"images/{sorte[7]}", width=100, height=100)
-        item9 = ft.Image(src=f"images/{sorte[8]}", width=100, height=100)
+        item1 = item(0)
+        item2 = item(1)
+        item3 = item(2)
+        item4 = item(3)
+        item5 = item(4)
+        item6 = item(5)
+        item7 = item(6)
+        item8 = item(7)
+        item9 = item(8)
         page.add(
-            ft.Row(controls=[titulo],
-                   vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                   alignment=ft.MainAxisAlignment.CENTER),
+            # ft.Row(controls=[titulo],
+            # vertical_alignment=ft.CrossAxisAlignment.CENTER,
+            # alignment=ft.MainAxisAlignment.CENTER),
             # literal jogo
-            ft.Row(controls=[item1, item2, item3],
-                   vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                   alignment=ft.MainAxisAlignment.CENTER),
-            ft.Row(controls=[item4, item5, item6],
-                   vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                   alignment=ft.MainAxisAlignment.CENTER),
-            ft.Row(controls=[item7, item8, item9],
-                   vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                   alignment=ft.MainAxisAlignment.CENTER),
-            ft.Row(controls=[retry],
-                   vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                   alignment=ft.MainAxisAlignment.CENTER),
+            ft.Container(
+                alignment=ft.alignment.center,
+                padding=170,
+                image_src="images/fundo.PNG",
+                content=ft.Column(
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    controls=[
+                        ft.Row(controls=[item1, item2, item3],
+                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                               alignment=ft.MainAxisAlignment.CENTER),
+                        ft.Row(controls=[item4, item5, item6],
+                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                               alignment=ft.MainAxisAlignment.CENTER),
+                        ft.Row(controls=[item7, item8, item9],
+                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                               alignment=ft.MainAxisAlignment.CENTER),
+                        # botão
+                        ft.Row(controls=[retry],
+                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                               alignment=ft.MainAxisAlignment.CENTER),
+
+                    ])
+            )
 
         )
 
+    def button_clicked(e):
+        pagina()
 
-    page.title = "jogo do patinho"
-    page.theme_mode = "light"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.title = "jogo do patinho"
+    page.theme_mode = "light"
+    page.bgcolor = ft.colors.BLACK
 
     titulo = ft.Text("Fortune Duck", size=50)
 
-    global sorte
-    retry = ft.IconButton(icon=ft.icons.ASSIGNMENT_RETURN, on_click=button_clicked)
-    item1 = ft.Image(src=f"images/{sorte[0]}", width=100, height=100)
-    item2 = ft.Image(src=f"images/{sorte[1]}", width=100, height=100)
-    item3 = ft.Image(src=f"images/{sorte[2]}", width=100, height=100)
-    item4 = ft.Image(src=f"images/{sorte[3]}", width=100, height=100)
-    item5 = ft.Image(src=f"images/{sorte[4]}", width=100, height=100)
-    item6 = ft.Image(src=f"images/{sorte[5]}", width=100, height=100)
-    item7 = ft.Image(src=f"images/{sorte[5]}", width=100, height=100)
-    item8 = ft.Image(src=f"images/{sorte[7]}", width=100, height=100)
-    item9 = ft.Image(src=f"images/{sorte[8]}", width=100, height=100)
-
-    page.add(
-        ft.Row(controls=[titulo],
-               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-               alignment=ft.MainAxisAlignment.CENTER),
-        # literal jogo
-        ft.Row(controls=[item1, item2, item3],
-               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-               alignment=ft.MainAxisAlignment.CENTER),
-        ft.Row(controls=[item4, item5, item6],
-               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-               alignment=ft.MainAxisAlignment.CENTER),
-        ft.Row(controls=[item7, item8, item9],
-               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-               alignment=ft.MainAxisAlignment.CENTER),
-        ft.Row(controls=[retry],
-               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-               alignment=ft.MainAxisAlignment.CENTER),
-
-    )
+    pagina()
 
 
 # def bets():
