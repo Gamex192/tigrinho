@@ -6,36 +6,16 @@ def sorteio():
     lista = ["amuleto.PNG", "carta.PNG", "laranja.PNG", "wild.PNG", "fogo_de_artificio.PNG",
              "saco_de_ouro.PNG", "zovo_de_ouro.PNG"]
     a = random.choice(lista)
-    b = random.choice(lista)
-    c = random.choice(lista)
-    d = random.choice(lista)
-    e = random.choice(lista)
-    f = random.choice(lista)
-    g = random.choice(lista)
-    h = random.choice(lista)
-    i = random.choice(lista)
 
-    return [a, b, c, d, e, f, g, h, i]
-
-
-sorte = sorteio()
+    return a
 
 
 def main(page: ft.Page):
     def pagina():
-
         def item(a):
-            global sorte
-            sorte = sorteio()
-            if a == 1 or 2 or 3:
-                return ft.Container(image_src=f"images/{sorte[a]}", padding=50, margin=2)
-            else:
-                return ft.Container(image_src=f"images/{sorte[a]}", padding=50, margin=2, )
+            return ft.Container(image_src=f"images/{sorteio()}", padding=50, margin=2)
 
-        global sorte
-        sorte = sorteio()
         page.clean()
-        retry = ft.IconButton(icon=ft.icons.ASSIGNMENT_RETURN, on_click=button_clicked)
         item1 = item(0)
         item2 = item(1)
         item3 = item(2)
@@ -51,32 +31,71 @@ def main(page: ft.Page):
             # alignment=ft.MainAxisAlignment.CENTER),
             # literal jogo
             ft.Container(
-                alignment=ft.alignment.center,
-                padding=170,
+                bgcolor=ft.colors.WHITE,
+                width=460,
+                height=800,
                 image_src="images/fundo.PNG",
-                content=ft.Column(
+                content=
+                ft.Column(
                     alignment=ft.MainAxisAlignment.CENTER,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
-                        ft.Row(controls=[item1, item2, item3],
-                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                               alignment=ft.MainAxisAlignment.CENTER),
-                        ft.Row(controls=[item4, item5, item6],
-                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                               alignment=ft.MainAxisAlignment.CENTER),
-                        ft.Row(controls=[item7, item8, item9],
-                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                               alignment=ft.MainAxisAlignment.CENTER),
-                        # botão
-                        ft.Row(controls=[retry],
-                               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                               alignment=ft.MainAxisAlignment.CENTER),
+                        ft.Container(
+                            margin=ft.margin.only(bottom=80, top=175),
+                            content=
+                            ft.Column(controls=[
+                                ft.Row(controls=[item1, item2, item3],
+                                       vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                                       alignment=ft.MainAxisAlignment.CENTER,
+                                       spacing=25,
+                                       ),
+                                ft.Row(controls=[item4, item5, item6],
+                                       vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                                       alignment=ft.MainAxisAlignment.CENTER,
+                                       spacing=25,
+                                       ),
+                                ft.Row(controls=[item7, item8, item9],
+                                       vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                                       alignment=ft.MainAxisAlignment.CENTER,
+                                       spacing=25,
+                                       ),
+                            ])
+                        ),
+                        # isso é pra dá a Mer** do espassamento entr a bos** do botão e a roleta
+                        ft.Row(
+                            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            controls=[
+                                    ft.TextField(color=ft.colors.YELLOW,
+                                                 scale=0.45,
+                                                 text_size=30,
+                                                 border_color="#721417")
 
-                    ])
+                            ]
+                        ),
+                        # botão
+                        ft.Row(
+                            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            controls=[
+                                ft.Container(
+                                    bgcolor=ft.colors.PURPLE,
+                                    padding=40,
+                                    content=ft.Text("  "),
+                                    border_radius=90,
+                                    margin=ft.margin.only(bottom=50),
+                                    on_click=lambda e: button_clicked(),
+                                )
+                            ]
+                        )
+
+                    ]
+                ),
             )
 
         )
 
-    def button_clicked(e):
+    def button_clicked():
         pagina()
 
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
